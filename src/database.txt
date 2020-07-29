@@ -1,0 +1,191 @@
+// import React from "react";
+// import "./App.css";
+// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+// function App() {
+//   return (
+//     <Router>
+//       <div className="App">
+//         <header className="App-header">
+//           <Link to="database">
+//             <img src="vs.png" className="App-logo" alt="logo" />
+//           </Link>
+//           <p>Enter VegSyn</p>
+//         </header>
+//       </div>
+//     </Router>
+//   );
+// }
+// <Switch>
+//   <Route path="/database">
+//     <database />
+//   </Route>
+// </Switch>;
+// function database() {
+//   return <h2>put database here</h2>;
+// }
+// export default App;
+//use array.includes to check db for duplicates
+//check out array.find for case sensitivity
+
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+// import { Form, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as yup from "yup";
+
+const schema = yup.object({
+  fName: yup.string().required(),
+  vegName: yup.string().required(),
+  waterTime: yup.string().required(),
+  seedSpace: yup.string().required(),
+  growTime: yup.string().required(),
+  soilType: yup.string().required(),
+  tipOne: yup.string().required(),
+  tipTwo: yup.string().required(),
+});
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/Database">
+            <Database />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+function Home() {
+  return (
+    <header className="App-header">
+      <Link to="database">
+        <img src="vs.png" className="App-logo" alt="logo" />
+      </Link>
+      <p>Enter VegSyn</p>
+    </header>
+  );
+}
+function Database() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Contribute to VegBase</h1>
+        <Formik
+          validationSchema={schema}
+          onSubmit={console.log}
+          initialValues={{
+            fName: "test",
+            vegName: "test",
+            waterTime: "test",
+            seedSpace: "test",
+            growTime: "test",
+            soilType: "test",
+            tipOne: "test",
+            tipTwo: "test",
+          }}
+        >
+          {({
+            handleSubmit,
+            handleChange,
+            handleBlur,
+            values,
+            touched,
+            isValid,
+            errors,
+          }) => (
+            <Form>
+              <Form.Group controlId="Contributer">
+                <Form.Label>Contributer Name:</Form.Label>
+                <Form.Control
+                  type="text"
+                  defaultValue="Anonymous"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="vegName">
+                <Form.Label>Vegetable</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Carrot"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="waterTime">
+                <Form.Label>Watering Information</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Every day, in the morning"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="seedSpace">
+                <Form.Label>Planting Distance</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="45cm apart"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="growTime">
+                <Form.Label>Time to Grow</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Two Weeks"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="soilType">
+                <Form.Label>Best Soil Type</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Light and Loose"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="tipOne">
+                <Form.Label>Extra tips?</Form.Label>
+                <Form.Control
+                  type="text"
+                  defaultValue="N/A"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="tipTwo">
+                <Form.Label>Extra Tips?</Form.Label>
+                <Form.Control
+                  type="text"
+                  defaultValue="N/A"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
+          )}
+        </Formik>
+      </header>
+    </div>
+  );
+}
+export default App;
+
+/////taken out of the manifest.json
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
